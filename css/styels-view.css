@@ -11,11 +11,11 @@ td{
     padding-block: min(5px);
 }
 
-tr:not(.caption) :nth-child(even){
+tr:nth-child(even){
     background-color: #FFFAEE;
 }
 
-tr:not(.caption) :hover{
+tbody tr:hover{
     background-color: #FEF2D8;
 }
 
@@ -25,4 +25,23 @@ tr:not(.caption) :hover{
     overflow-x: hidden;
     scrollbar-color: #FDD375 #F2F2F4;
     scrollbar-width: thin;
+}
+
+th{
+    color: #2C2B38;
+}
+
+.order-id-text{
+    color: #6B6B74;
+    font-weight: 400;
+}
+
+.btn-outline{
+    background-color: #fff;
+    border: 2px solid #F1303A;
+    color: #F1303A;
+}
+
+.btn-outline:active{
+    border: 2px solid #bb111a !important;
 }

@@ -1,0 +1,36 @@
+.main-container{
+    padding: min(3rem) min(3rem);
+}
+
+.details h2{
+    color: #6B6B74;
+    margin: 0;
+}
+
+.details p{
+    color: #ABAAAF;
+    margin: 0;
+}
+
+.btn-download{
+    width: min(3.5rem);
+    height: min(3.5rem);
+    border: 2px solid #FCC03A;
+    color: #FCC03A;
+    font-size: clamp(0.5rem, 2.5vw, 1.5rem);
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.btn-download:hover{
+    cursor: pointer;
+    background-color: #FCC03A;
+    color: #fff;
+}
+
+.receipt-container{
+    width: 100%;
+    height: min(36rem);
+    border-radius: 12px;
+    background-color: #D9D9D9;
+}

@@ -345,6 +345,14 @@ th, td{
     justify-content: end;
 }
 
+.items-link{
+    text-decoration: underline;
+    color: #2C2B38;
+}
+
+.items-link:hover{
+    color: #CA9A2E;
+}
 
 @media (max-width: 1366px){
     main{
