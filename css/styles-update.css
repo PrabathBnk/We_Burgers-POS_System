@@ -1,0 +1,20 @@
+.txt-input{
+    padding: min(5px) min(10px);
+    border: 1px solid #FCC03A;
+    border-radius: 10px;
+    transition: border-color 0.2s;
+}
+
+.txt-input:focus{
+    outline: none;
+    border-color: #CA9A2E;
+}
+
+.main-container{
+    padding-block: min(5rem);
+}
+
+.restricted{
+    cursor: default;
+    color: #6B6B74;
+}

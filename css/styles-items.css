@@ -1,0 +1,41 @@
+
+
+.text-boxes{
+    width: min(50rem);
+}
+
+.text-box{
+    border: none;
+    background-color: #F3F3F4;
+    padding-block: min(15px);
+    padding-left: min(25px);
+    border-radius: 10px;
+}
+
+input[type="text"]{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    outline: none;
+}
+
+.text-box label{
+    font-weight: 400;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #6B6B74;
+    position: absolute;
+    padding-left: min(5px);
+    transition: all 0.3s;
+}
+
+.active{
+    margin-top: min(-40px);
+    font-size: clamp(0.8rem, 2vw, 1.1rem) !important;
+    color: #46464d !important;
+}
+
+.color{
+    color: #1010c0 !important;
+}
+
+

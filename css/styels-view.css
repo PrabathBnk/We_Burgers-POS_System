@@ -1,0 +1,28 @@
+.main-container{
+    padding: min(1rem) min(1rem);
+    height: min(40rem);
+}
+
+.caption{
+    border-bottom: 1px solid #C0BFC3;
+}
+
+td{
+    padding-block: min(5px);
+}
+
+tr:not(.caption) :nth-child(even){
+    background-color: #FFFAEE;
+}
+
+tr:not(.caption) :hover{
+    background-color: #FEF2D8;
+}
+
+.table-body{
+    height: 79%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #FDD375 #F2F2F4;
+    scrollbar-width: thin;
+}
