@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styles-items.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="getCustomers()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -68,32 +68,32 @@
                     <div class="row w-75">
                         <div class="text-box ">
                             <label class="label" for="txtName">Customer Name</label>
-                            <input class="input-box " id="txtName" type="text">
+                            <input class="input-box " id="txtName" type="text" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mt-5">
                         <div class="text-box">
-                            <label class="label" for="txtName">Contact Number (Customer ID)</label>
-                            <input class="input-box" id="txtName" type="text">
+                            <label class="label" for="txtCustID">Contact Number (Customer ID)</label>
+                            <input class="input-box" id="txtCustID" type="text" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row w-75 mt-5">
                         <div class="text-box ">
-                            <label class="label" for="txtName">Address</label>
-                            <input class="input-box " id="txtName" type="text">
+                            <label class="label" for="txtAddress">Address</label>
+                            <input class="input-box" id="txtAddress" type="text" autocomplete="off">
                         </div>
                     </div>
                 </div>
                 <div class="row  btn-container">
-                    <button class="btn btn-main-func me-4">Add New Customer</button>
-                    <button class="btn btn-sec-func">Back</button>
+                    <button type="submit" onclick="addCustomer()" class="btn btn-main-func me-4">Add New Customer</button>
+                    <button onclick="test()" class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
-
-
-        <script src="/js/app-items.js"></script>
+        <div class="position-fixed top-0 end-0 z-n1 main-bg"></div>
    </main>
-
+   
+   <script src="/js/app.js"></script>
+   <script src="/js/app-items.js"></script>
 </body>
 </html>

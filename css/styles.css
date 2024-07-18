@@ -296,7 +296,6 @@ th{
 }
 
 td{
-    font-weight: 400;
     color: #2C2B38;
 }
 
@@ -306,10 +305,6 @@ th, td{
 
 .details-table tr  td{
     width: 55%;
-}
-
-tbody td{
-    text-align: center;
 }
 
 /* Buttons */
@@ -371,6 +366,7 @@ tbody td{
 }
 
 .items-link:hover{
+    cursor: pointer;
     color: #CA9A2E;
 }
 

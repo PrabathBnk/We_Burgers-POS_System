@@ -11,7 +11,6 @@ setTimeout(() => {
     for(let i = 0; i < searchField.length; i++){
        search.push(searchField[i].toLowerCase());
     }
-
    
     let resultArray = [];
     for (let i = 0; i < search.length; i++) {

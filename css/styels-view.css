@@ -7,11 +7,6 @@
     border-bottom: 1px solid #C0BFC3;
 }
 
-td{
-    padding-block: min(5px);
-    padding-left: min(20px);
-}
-
 tr:nth-child(even){
     background-color: #FFFAEE;
 }
@@ -51,4 +46,11 @@ tbody .price {
     text-align: end;
     padding: 0;
     padding-right: min(3rem);
+}
+
+tbody td{
+    padding-block: min(5px);
+    padding-left: min(20px);
+    text-align: center;
+    font-weight: 400;
 }

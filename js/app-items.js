@@ -20,7 +20,7 @@ for (let i = 0; i < textBoxes.length; i++) {
     textBoxes[i].childNodes[3].addEventListener("focusout", function(){
         if(!textBoxes[i].childNodes[3].value){
             textBoxes[i].childNodes[1].classList.remove("active");
-            if(textBoxes[i].children.length == 2 && i != 3){
+            if(textBoxes[i].children.length == 2 && textBoxes[i].children[1].required == true){
                 //---------------Error Message--------------------
                 let error = document.createElement("p");
                 error.innerHTML = "This field is required";
@@ -31,5 +31,4 @@ for (let i = 0; i < textBoxes.length; i++) {
         }
     });
 }
-
 

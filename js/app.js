@@ -42,6 +42,7 @@ openRequest.onsuccess = ()=>{
 
 let items;
 let itemCode;
+
 //-----------------------------Generate Item Code--------------------------------
 setItemCode = ()=>{
     let transaction = openRequest.result.transaction("item_os");
@@ -56,7 +57,7 @@ setItemCode = ()=>{
     }   
 }
 
-//----------------------------------Item Adding------------------------
+//----------------------------------Adding Item------------------------
 addItem = ()=>{
     const name = document.getElementById("txtName");
     const price = document.getElementById("txtPrice");
@@ -222,6 +223,167 @@ viewAllItems = ()=>{
                             <td>${itemList[i].qty}</td>
                             <td>${isEmpty(itemList[i].discount) ? "-":  itemList[i].discount + "%"}</td>
                             <td>${itemList[i].expDate}</td>
+                        </tr>`
+        }
+
+        document.getElementById("viewTblBody").innerHTML = tblBody;
+    }
+}
+
+
+let customers;
+//----------------------------Get All Customers-------------------------
+getCustomers = ()=>{
+    let transaction = openRequest.result.transaction("customer_os");
+    const objectStore = transaction.objectStore("customer_os");
+
+    const getRequest = objectStore.getAll();
+
+    getRequest.onsuccess = ()=>{
+        customers = getRequest.result;
+    }
+}
+
+//--------------------------------Adding Customer------------------------
+addCustomer = ()=>{
+    const name = document.getElementById("txtName");
+    const customerID = document.getElementById("txtCustID");
+    const address = document.getElementById("txtAddress");
+
+    let valueArray = [customerID, name, address];
+
+    let isError = false;
+
+    customerID.dispatchEvent(new Event("submitter"))
+
+    for (let i = 0; i < valueArray.length-1; i++) {
+        if(isEmpty(valueArray[i].value)){
+            valueArray[i].parentElement.style.backgroundColor = "#FEEAEB";
+            valueArray[i].labels[0].style.color = "#F1303A";
+            if(valueArray[i].parentElement.children.length == 2){
+                valueArray[i].parentElement.insertAdjacentElement("beforeend", errorMessage("This field is required"));
+            }
+            isError = true;
+        }else{
+            valueArray[i].parentElement.style.backgroundColor = "#F3F3F4";
+        }
+    }
+    if(isError){return;}
+    
+    if(!isValidNumber(customerID.value)){
+        customerID.parentElement.style.backgroundColor = "#FEEAEB";
+        customerID.labels[0].style.color = "#F1303A";
+        if(customerID.parentElement.children.length == 2){
+            customerID.parentElement.insertAdjacentElement("beforeend", errorMessage("Enter Valid Conatct Number : 0xxxxxxxxx"));
+        }
+        isError = true;
+    }
+    if(isError){return;}
+
+    customers.forEach(element => {
+        if(element.customerID == customerID.value){
+            alert("A customer already exists with this Conatct Number.");
+            isError = true;
+        }
+    });
+
+    if(isError){return;}
+
+    const objectStore = openRequest.result.transaction("customer_os", "readwrite").objectStore("customer_os");
+
+    const addRequest = objectStore.add({
+        customerID: customerID.value,
+        name: name.value,
+        address: address.value
+    });
+
+    addRequest.onsuccess = ()=>{
+        alert("Customer Added Successfully!")
+        location.reload();
+    }
+}
+
+test = ()=>{
+    console.log(customers);
+}
+
+isValidNumber = (number)=>{
+    if (number.length == 10 && number[0] == "0") {
+        l1: for (let i = 1; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (number[i] == j.toString()) {
+                    continue l1;
+                }
+            }
+            return false;
+        }
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//------------------------------Deleting Customer-------------------------------
+deleteCustomer = ()=>{
+    console.log(customers);
+    if(searchResult){
+        if(confirm("Permenetly delete this customer?")){
+            const transaction = openRequest.result.transaction("customer_os", "readwrite");
+            const objectStore = transaction.objectStore("customer_os");
+
+            const deleteObj = objectStore.delete(searchResult.customerID);
+
+            deleteObj.onsuccess = ()=>{
+                document.getElementById("btnMainFunc").disabled = true;
+                location.reload();
+            }
+            searchResult = undefined;
+        }
+    }
+}
+
+//---------------------------Update Customer--------------------
+updateCustomer = ()=>{
+    if(confirm("Update this customer?")){
+        const objectStore = openRequest.result.transaction("customer_os", "readwrite").objectStore("customer_os");
+
+        const getObj = objectStore.get(searchResult.customerID);
+        
+        getObj.onsuccess = ()=>{   
+            let data = getObj.result;
+
+            data.name = fields[1].value;
+            data.address = fields[2].value;
+
+            const updateRequest = objectStore.put(data);
+            updateRequest.transaction;
+
+            updateRequest.onsuccess = ()=>{
+                document.getElementById("btnMainFunc").disabled = true;
+                location.reload();
+            }
+            searchResult = undefined;
+        }
+    }
+    
+}
+
+//-----------------------------View Customers-----------------------
+let customerList;
+viewAllCustomers = ()=>{
+    objectStore = openRequest.result.transaction("customer_os", "readonly").objectStore("customer_os");
+
+    let getAllRequest = objectStore.getAll();
+    let tblBody = ``;
+    getAllRequest.onsuccess = ()=>{
+        customerList = getAllRequest.result;
+        for (let i = 0; i < customerList.length; i++) {
+            tblBody += `<tr>
+                            <td>${i+1}</td>
+                            <td>${customerList[i].customerID}</td>
+                            <td>${customerList[i].name}</td>
+                            <td>${customerList[i].address}</td>
+                            <td><a class="items-link">0000</a></td>
                         </tr>`
         }
 
