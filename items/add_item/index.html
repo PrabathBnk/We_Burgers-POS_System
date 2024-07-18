@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styles-items.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="setItemCode()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -64,47 +64,51 @@
                 <h2 class="heading-option mt-5">Add New Item</h2>
             </div>
             <div class="d-flex justify-content-center align-items-center id-container">
-                <p class="fw-normal mb-0">Item Code <span class="fw-normal ms-2 me-2">|</span> <span class="fw-semibold">O0001</span></p>
+                <p class="fw-normal mb-0">Item Code <span class="fw-normal ms-2 me-2">|</span> <span id="itemCode" class="fw-semibold"></span></p>
             </div>
             <div class="container box main-container">
                 <div class="text-boxes">
                     <div class="row">
                         <div class="text-box">
                             <label class="label" for="txtName">Item Name</label>
-                            <input class="input-box" id="txtName" type="text">
+                            <input class="input-box" id="txtName" autocomplete="off" type="text">
                         </div>
                     </div>
                     <div class="row w-100 mt-5 gap-4 flex-nowrap">
                         <div class="text-box w-50">
-                            <label class="label" for="txtName">Item Price</label>
-                            <input class="input-box " id="txtName" type="text">
+                            <label class="label" for="txtPrice">Item Price (LKR)</label>
+                            <input class="input-box " id="txtPrice" autocomplete="off" min="1" type="number">
                         </div>
                         <div class="text-box w-50">
-                            <label class="label" for="txtName">Quantity</label>
-                            <input class="input-box " id="txtName" type="text">
+                            <label class="label" for="txtQty">Quantity</label>
+                            <input class="input-box " id="txtQty" autocomplete="off" min="1" type="number">
                         </div>
                     </div>
                     <div class="row w-100 mt-5 gap-4 flex-nowrap">
                         <div class="text-box w-25">
-                            <label class="label" for="txtName">Discount (%)</label>
-                            <input class="input-box " id="txtName" type="text">
+                            <label class="label" for="txtDiscount">Discount (%)</label>
+                            <input class="input-box " id="txtDiscount" autocomplete="off" min="0" type="number">
                         </div>
-                        <div class="text-box w-75">
-                            <label class="label" for="txtName">Expiration Date</label>
-                            <input class="input-box " id="txtName" type="text">
+                        <div class="date-box w-75">
+                            <!-- <label class="label" for="txtExpDate">Expiration Date</label> -->
+                            <input class="input-box " id="txtExpDate" type="date">
                         </div>
                     </div>
                 </div>
                 <div class="row  btn-container">
-                    <button class="btn btn-main-func me-4">Add New Item</button>
-                    <button class="btn btn-sec-func">Back</button>
+                    <button onclick="addItem()" class="btn btn-main-func me-4">Add New Item</button>
+                    <button onclick="deleteObj()" class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
-
-
-        <script src="/js/app-items.js"></script>
+        <div class="position-fixed top-0 end-0 z-n1 main-bg"></div>
    </main>
-
+   <script src="/js/app-items.js"></script>
+   <script src="/js/app.js"></script>
+    <script>
+        let today = new Date().getFullYear() + "-" + ("00" + (new Date().getMonth()+1)).slice(-2) + "-" + ("00" + new Date().getDate()).slice(-2);
+        document.getElementById("txtExpDate").min = today;
+        document.getElementById("txtExpDate").value = today;
+    </script>
 </body>
 </html>

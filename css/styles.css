@@ -90,6 +90,13 @@ a{
     background-color: var(--yellow-secondry-hover);
 }
 
+.main-bg{
+    width: 80%;
+    height: 100vh;
+    background-color: #EAEAEB;
+}
+
+
 /* ------------------Search Bar------------------*/
 .searchbar{
     width: min(50rem);
@@ -289,11 +296,20 @@ th{
 }
 
 td{
+    font-weight: 400;
     color: #2C2B38;
 }
 
 th, td{
     padding-block: 0.7rem;
+}
+
+.details-table tr  td{
+    width: 55%;
+}
+
+tbody td{
+    text-align: center;
 }
 
 /* Buttons */
@@ -343,6 +359,10 @@ th, td{
     margin-left: auto;
     margin-top: 5rem;
     justify-content: end;
+}
+
+.btn-main-func:disabled{
+    background-color: #e8e8eb;
 }
 
 .items-link{

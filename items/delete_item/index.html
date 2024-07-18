@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="getItems()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -60,48 +60,51 @@
     <main class="position-absolute top-0 end-0">
         <div class="container mt-md-5">
             <div class="row">
-                <h2 class="heading-option mt-5">Delete Item</h2>
+                <h2 id="heading" class="heading-option mt-5">Delete Item</h2>
             </div>
             <div class="searchbar box box-shadow w-auto mt-4">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchbar" class="search-text" type="text" placeholder="Search Item">
+                <i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
+                <input id="searchbar" class="search-text" type="text" autocomplete="off" placeholder="Search Item by Item ID or Name">
              </div>
             <div class="container box main-container mt-4">
                 <div class="tbl-container">
                     <table class="details-table w-100">
                         <tr>
                             <th>Item Code</th>
-                            <td>I0001</td>
+                            <td id="itemCode"></td>
                         </tr>
                         <tr>
                             <th>Item Name</th>
-                            <td>Burger</td>
+                            <td id="name"></td>
                         </tr>
                         <tr>
-                            <th>Price</th>
-                            <td>00</td>
+                            <th>Price (LKR)</th>
+                            <td id="price"></td>
                         </tr>
                         <tr>
                             <th>Quantity</th>
-                            <td>00</td>
+                            <td id="qty"></td>
                         </tr>
                         <tr>
                             <th>Discount</th>
-                            <td>00</td>
+                            <td id="discount"></td>
                         </tr>
                         <tr>
                             <th>Expiration Date</th>
-                            <td>00/00/0000</td>
+                            <td id="expDate"></td>
                         </tr>
                     </table>
                 </div>
                 <div class="row  btn-container">
-                    <button class="btn btn-main-func me-4">Delete Item</button>
+                    <button onclick="deleteItem()" id="btnMainFunc" class="btn btn-main-func me-4" disabled >Delete Item</button>
                     <button class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
+        <div class="position-fixed top-0 end-0 z-n1 main-bg"></div>
    </main>
-   <script src="/js/app-items.js"></script>
+
+   <script src="/js/app.js"></script>
+   <script src="/js/app-search.js"></script>
 </body>
 </html>

@@ -4,20 +4,22 @@
     width: min(50rem);
 }
 
-.text-box{
+.text-box, .date-box{
     border: none;
     background-color: #F3F3F4;
     padding-block: min(15px);
     padding-left: min(25px);
     border-radius: 10px;
+    transition: border 0.1s;
 }
 
-input[type="text"]{
+input{
     background-color: transparent;
     border: none;
     width: 100%;
     outline: none;
 }
+
 
 .text-box label{
     font-weight: 400;
@@ -36,6 +38,14 @@ input[type="text"]{
 
 .color{
     color: #1010c0 !important;
+}
+
+.error-msg{
+    position: absolute;
+    font-size: clamp(0.2rem , 0.7vw, 1rem);
+    margin-top: min(1.1rem);
+    color: #F1303A;
+    transition: all 0.2s;
 }
 
 

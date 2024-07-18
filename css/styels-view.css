@@ -9,6 +9,7 @@
 
 td{
     padding-block: min(5px);
+    padding-left: min(20px);
 }
 
 tr:nth-child(even){
@@ -44,4 +45,10 @@ th{
 
 .btn-outline:active{
     border: 2px solid #bb111a !important;
+}
+
+tbody .price {
+    text-align: end;
+    padding: 0;
+    padding-right: min(3rem);
 }

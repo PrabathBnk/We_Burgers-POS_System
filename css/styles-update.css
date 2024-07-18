@@ -3,6 +3,7 @@
     border: 1px solid #FCC03A;
     border-radius: 10px;
     transition: border-color 0.2s;
+    width: 80%;
 }
 
 .txt-input:focus{
