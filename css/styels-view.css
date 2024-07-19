@@ -54,3 +54,21 @@ tbody td{
     text-align: center;
     font-weight: 400;
 }
+
+.table-order td{
+    text-align: left;
+    font-weight: 500;
+}
+
+.table-body tbody .qty{
+    width: min(10rem);
+}
+
+.table-body tbody .qty input{
+    width: 50%;
+    border: 1px solid #FCC03A;
+    font-weight: 400;
+    border-radius: 5px;
+    padding-left: min(5px);
+}
+

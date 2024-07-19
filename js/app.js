@@ -1,5 +1,7 @@
 let db;
 
+let itemList;
+
 const openRequest = indexedDB.open("we_burgers", 1);
 
 openRequest.onupgradeneeded = (event)=>{
@@ -38,6 +40,11 @@ openRequest.onupgradeneeded = (event)=>{
 
 openRequest.onsuccess = ()=>{
     //console.log("Database opened successfully");
+    let getItemRequest  = openRequest.result.transaction("item_os").objectStore("item_os").getAll()
+    
+    getItemRequest.onsuccess = ()=>{
+        itemList = getItemRequest.result;
+    }
 }
 
 let items;
@@ -206,7 +213,7 @@ updateItem = ()=>{
 
 
 //-----------------------------View Item-----------------------
-let itemList;
+
 viewAllItems = ()=>{
     objectStore = openRequest.result.transaction("item_os", "readonly").objectStore("item_os");
 
@@ -231,8 +238,9 @@ viewAllItems = ()=>{
 }
 
 
-let customers;
+
 //----------------------------Get All Customers-------------------------
+let customers;
 getCustomers = ()=>{
     let transaction = openRequest.result.transaction("customer_os");
     const objectStore = transaction.objectStore("customer_os");
@@ -390,3 +398,45 @@ viewAllCustomers = ()=>{
         document.getElementById("viewTblBody").innerHTML = tblBody;
     }
 }
+
+
+//-------------------------Generate Order ID--------------------------
+let orderDate;
+let orderTime;
+generateOrderID = ()=>{
+    let objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
+    let getRequest = objectStore.getAll();
+
+    getRequest.onsuccess = ()=>{
+        let orderID = document.getElementById("orderID");
+
+        orderID.innerHTML = "O" + (("0000" + (getRequest.result.length + 1)).slice(-4));
+    }
+
+    //-------------------Make Continue Button disabled when page is loaded------------
+    document.getElementById("btnContinue").disabled = true; 
+
+    //------------------Set Date and Time-----------------
+    const date = new Date(Date());
+    document.getElementById("dateAndTime").innerHTML = `Date: ${orderDate = date.toLocaleDateString()}<br>Time ${orderTime = date.toLocaleTimeString()}`
+}
+
+
+//-------------------------Remove Item from Order-------------------
+removeItem = (event)=>{
+    let tr = event.target.parentElement.parentElement;
+    let removeItemNo = parseInt(tr.children[0].innerHTML);
+    let resultTBody = tr.parentElement;
+
+    document.getElementById("orderItems").removeChild(tr);
+
+    for (let i = parseInt(removeItemNo)-1; i < resultTBody.children.length; i++) {
+        resultTBody.children[i].children[0].innerHTML = i + 1;
+        orderItemList[i+1].no = i + 1;
+    }
+
+    orderItemList.splice(removeItemNo-1, 1);
+    calculateTotal();
+}
+
+

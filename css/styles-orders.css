@@ -15,7 +15,7 @@
 }
 
 .table-order{
-    width: 20%;
+    width: 25%;
     margin-right: min(3rem);
 }
 
@@ -62,6 +62,11 @@
 .btn-continue:active{
     color: #fff !important;
     background-color: #e2a011 !important;
+}
+
+.btn-continue:disabled{
+    background-color: #e8e8eb;
+    color: #6B6B74;
 }
 
 .date-time{

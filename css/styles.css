@@ -370,6 +370,58 @@ th, td{
     color: #CA9A2E;
 }
 
+/* Search Results - Place Order */
+.searchResults-container{
+    width: 80%;
+    height: fit-content;
+    background-color: #ffffff;
+    margin-left: min(3.2rem);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 15px #2c2b381a;
+}
+
+.searchResults-container tbody td:not(:last-child){
+    border-right: 1px solid #56565e;
+}
+
+/* Remove Button */
+.remove-btn button{
+    width: 100%;
+    color: #fff;
+    font-weight: 700;
+    background-color: #F1303A;
+    display: flex;
+    height: min(28px);
+    justify-content: center;
+    align-items: center;
+}
+
+.remove-btn button:hover{
+    color: #fff;
+    background-color: #d81e27;
+}
+
+.remove-btn button:active{
+    color: #fff !important;
+    background-color: #bb111a !important;
+}
+
+/* Order Inputs */
+.order-input input{
+    width: min(8rem);
+    border-radius: 5px;
+    border: 1px solid #FCC03A;
+}
+
+.order-input input:focus{
+    outline: none;
+    border-color: #CA9A2E;
+}
+
+.remove-btn{
+    width: 5rem;
+}
+
 @media (max-width: 1366px){
     main{
         max-width: 75vw;
