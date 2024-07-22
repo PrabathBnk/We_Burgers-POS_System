@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styels-view.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="onItemDetailsLoad()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -61,38 +61,38 @@
     <main class="position-absolute top-0 end-0">
         <div class="container mt-md-5">
             <div class="row">
-                <h2 class="heading-option m-0 mt-3">View Orders - Item Details</h2>
-                <h4 class="order-id-text m-0">Order ID | O0001</h4>
+                <h2 id="heading" class="heading-option m-0 mt-3">View Orders - Item Details</h2>
+                <h4 class="order-id-text m-0">Order ID | <span id="orderID"></span></h4>
             </div>
             <div class="searchbar box box-shadow w-auto mt-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchbar" class="search-text" type="text" placeholder="Search Item">
+                <input id="searchbar" class="search-text" onkeydown="searchItem(event)" type="text" placeholder="Search Item">
              </div>
             <div class="container box main-container mt-4">
-                <table class="w-100">
-                    <thead>
-                        <tr class="caption text-center">
-                            <th>No</th>
-                            <th>Item Code</th>
-                            <th>Item Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Discount</th>
-                            <th>Total Amount</th>
-                        </tr>
-                    </thead>
-                </table>
                 <div class="table-body">
                     <table class="w-100">
-                        <tbody id="viewTableDetails"></tbody>
+                        <thead>
+                            <tr class="caption text-center">
+                                <th>No</th>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Unit Price</th>
+                                <th>Qty</th>
+                                <th>Discount</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderItemDetails"></tbody>
                     </table>
                 </div>
                 <div class="row  btn-container mt-4 me-4">
-                    <button class="btn btn-sec-func">Back</button>
+                    <button onclick="backToView()" class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
    </main>
-   <script src="/js/app-items.js"></script>
+
+   <script src="/js/app.js"></script>
+   <script src="/js/app-search-order.js"></script>
 </body>
 </html>

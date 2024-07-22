@@ -89,7 +89,7 @@ netTotal = ()=>{
 
 onItemDetailsLoad = ()=>{
     let result = JSON.parse(localStorage.getItem("result"));
-    
+
     document.getElementById("orderID").innerHTML = result.orderID;
 
     let resultTBody = ``;
@@ -275,3 +275,11 @@ searchItem = (event)=>{
 
     }, 5);
 };
+
+
+//--------------------Back--------------------
+
+backToView = ()=>{
+    localStorage.clear();
+    location.href = "/orders/view_order/index.html";
+}

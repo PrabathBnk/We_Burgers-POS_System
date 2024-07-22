@@ -470,16 +470,16 @@ delteOrder = ()=>{
             const deleteObj = objectStore.delete(result.orderID);
 
             deleteObj.onsuccess = ()=>{
+                localStorage.clear();
                 document.getElementById("btnMainFunc").disabled = true;
                 location.reload();
             }
-            localStorage.clear();
         }
     }
 }
 
 
-//---------------------------
+//---------------------------Update Order----------------------
 updateOrder = ()=>{
     let result = JSON.parse(localStorage.getItem("result"));
     let customerID = fields[1].value;
@@ -506,16 +506,39 @@ updateOrder = ()=>{
             updateRequest.transaction;
 
             updateRequest.onsuccess = ()=>{
+                localStorage.clear();
                 document.getElementById("btnMainFunc").disabled = true;
                 location.reload();
             }
-            searchResult = undefined;
         }
     }
 }
 
 
+//-----------------------------View Order-----------------------
+viewAllOrders = ()=>{
+    objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
 
+    let getAllRequest = objectStore.getAll();
+    let tblBody = ``;
+    getAllRequest.onsuccess = ()=>{
+        orders = getAllRequest.result;
+        for (let i = 0; i < orders.length; i++) {
+            tblBody += `<tr>
+                            <td>${i+1}</td>
+                            <td>${orders[i].orderID}</td>
+                            <td>${orders[i].customerID}</td>
+                            <td>${parseFloat(orders[i].netAmount).toFixed(2)}</td>
+                            <td>${isEmpty(orders[i].discount) || parseFloat(orders[i].discount) == 0 ? "-": orders[i].discount}</td>
+                            <td>${orders[i].date}</td>
+                            <td>${orders[i].time}</td>
+                            <td><a class="items-link" onclick="toItemDetails(event)">View Details</a></td>
+                        </tr>`
+        }
+
+        document.getElementById("viewTblBody").innerHTML = tblBody;
+    }
+}
 
 test = ()=>{
     getOrders();
