@@ -213,7 +213,6 @@ updateItem = ()=>{
 
 
 //-----------------------------View Item-----------------------
-
 viewAllItems = ()=>{
     objectStore = openRequest.result.transaction("item_os", "readonly").objectStore("item_os");
 
@@ -311,9 +310,6 @@ addCustomer = ()=>{
     }
 }
 
-test = ()=>{
-    console.log(customers);
-}
 
 isValidNumber = (number)=>{
     if (number.length == 10 && number[0] == "0") {
@@ -333,7 +329,6 @@ isValidNumber = (number)=>{
 
 //------------------------------Deleting Customer-------------------------------
 deleteCustomer = ()=>{
-    console.log(customers);
     if(searchResult){
         if(confirm("Permenetly delete this customer?")){
             const transaction = openRequest.result.transaction("customer_os", "readwrite");
@@ -409,8 +404,19 @@ generateOrderID = ()=>{
 
     getRequest.onsuccess = ()=>{
         let orderID = document.getElementById("orderID");
+        let orders = getRequest.result;
 
-        orderID.innerHTML = "O" + (("0000" + (getRequest.result.length + 1)).slice(-4));
+        let no = 1;
+
+        if(orders.length != 0){
+            let lastID = (orders[orders.length - 1]).orderID;
+            no = parseInt((lastID).slice(1,5)) + 1;
+        }
+        
+        let id = "O" + (("0000" + (no)).slice(-4));
+
+
+        orderID.innerHTML = id;
     }
 
     //-------------------Make Continue Button disabled when page is loaded------------
@@ -438,4 +444,45 @@ removeItem = (event)=>{
     orderItemList.splice(removeItemNo-1, 1);
     calculateTotal();
 }
+
+
+let orders;
+//--------------------------Get All Orders----------------------
+getOrders = ()=>{
+    let objectStore = openRequest.result.transaction("order_os").objectStore("order_os");
+
+    let getRequest = objectStore.getAll();
+
+    getRequest.onsuccess = ()=>{
+        orders = getRequest.result;
+    }
+}
+
+//-----------------------
+delteOrder = ()=>{
+    let result = JSON.parse(localStorage.getItem("result"));
+    if(result){
+        if(confirm("Permenetly delete this order?")){
+            const transaction = openRequest.result.transaction("order_os", "readwrite");
+            const objectStore = transaction.objectStore("order_os");
+
+            const deleteObj = objectStore.delete(result.orderID);
+
+            deleteObj.onsuccess = ()=>{
+                document.getElementById("btnMainFunc").disabled = true;
+                location.reload();
+            }
+            localStorage.clear();
+        }
+    }
+}
+
+test = ()=>{
+    getOrders();
+
+    setTimeout(() => {
+        console.log(orders);
+    }, 10);
+}
+
 
