@@ -439,4 +439,3 @@ removeItem = (event)=>{
     calculateTotal();
 }
 
-
