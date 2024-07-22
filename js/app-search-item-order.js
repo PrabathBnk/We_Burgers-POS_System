@@ -95,7 +95,6 @@ calcTotAmount = (event)=>{
     let discount = parseFloat(tr.children[5].innerHTML == "-" ? "0": tr.children[5].innerHTML);
     let totAmount = tr.children[6];
 
-    
     let item;
     orderItemList.forEach(element => {
         if(element.no == tr.children[0].innerHTML){
@@ -105,7 +104,7 @@ calcTotAmount = (event)=>{
     });
     
     item.qty = qty;
-    item.totalAmount = (price * qty) - (price * discount / 100);
+    item.totalAmount = (price * qty) - ((price * discount / 100) * qty);
 
     totAmount.innerHTML = (item.totalAmount).toFixed(2);
     

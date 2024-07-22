@@ -287,12 +287,10 @@ addCustomer = ()=>{
     }
     if(isError){return;}
 
-    customers.forEach(element => {
-        if(element.customerID == customerID.value){
-            alert("A customer already exists with this Conatct Number.");
-            isError = true;
-        }
-    });
+    if(isNumberExists(customerID.value)){
+        alert("A customer already exists with this Conatct Number.");
+        isError = true;
+    }
 
     if(isError){return;}
 
@@ -310,6 +308,9 @@ addCustomer = ()=>{
     }
 }
 
+isNumberExists = (customerID)=>{
+    return customers.find((element) => element.customerID == customerID);
+}
 
 isValidNumber = (number)=>{
     if (number.length == 10 && number[0] == "0") {
@@ -458,7 +459,7 @@ getOrders = ()=>{
     }
 }
 
-//-----------------------
+//-----------------------Delete Order---------------------
 delteOrder = ()=>{
     let result = JSON.parse(localStorage.getItem("result"));
     if(result){
@@ -477,6 +478,45 @@ delteOrder = ()=>{
     }
 }
 
+
+//---------------------------
+updateOrder = ()=>{
+    let result = JSON.parse(localStorage.getItem("result"));
+    let customerID = fields[1].value;
+    let discount = fields[3].value == "" ? 0: fields[3].valueAsNumber;
+
+    if(result.customerID != customerID && isNumberExists(customerID)){
+        alert("A customer already exists with this Conatct Number.")
+    }else if(isNaN(discount) || discount < 0 || parseFloat(result.netAmount) < discount){
+        alert("Invalid discount amount.")
+    }else{
+        const objectStore = openRequest.result.transaction("order_os", "readwrite").objectStore("order_os");
+
+        const getObj = objectStore.get(result.orderID);
+        
+        getObj.onsuccess = ()=>{   
+            let data = getObj.result;
+
+            data.customerID = customerID;
+            data.discount = discount.toString();
+            data.netAmount = fields[2].innerHTML;
+            data.itemDetails = result.itemDetails;
+
+            const updateRequest = objectStore.put(data);
+            updateRequest.transaction;
+
+            updateRequest.onsuccess = ()=>{
+                document.getElementById("btnMainFunc").disabled = true;
+                location.reload();
+            }
+            searchResult = undefined;
+        }
+    }
+}
+
+
+
+
 test = ()=>{
     getOrders();
 
@@ -484,5 +524,4 @@ test = ()=>{
         console.log(orders);
     }, 10);
 }
-
 

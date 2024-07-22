@@ -61,12 +61,12 @@
     <main class="position-absolute top-0 end-0">
         <div class="container mt-md-5">
             <div class="row">
-                <h2 class="heading-option m-0 mt-3">Delete Order - Item Details</h2>
+                <h2 id="heading" class="heading-option m-0 mt-3">Delete Order - Item Details</h2>
                 <h4 class="order-id-text m-0">Order ID | <span id="orderID"></span></h4>
             </div>
             <div class="searchbar box box-shadow w-auto mt-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchbar" class="search-text" type="text" placeholder="Search Item">
+                <input id="searchbar" onkeydown="searchItem(event)" class="search-text" type="text" placeholder="Search Item">
              </div>
             <div class="container box main-container mt-4">
                 <div class="table-body">
@@ -82,7 +82,7 @@
                                 <th>Total Amount</th>
                             </tr>
                         </thead>
-                        <tbody id="viewItemDetails"></tbody>
+                        <tbody id="orderItemDetails"></tbody>
                     </table>
                 </div>
                 <div class="row  btn-container mt-4 me-4">

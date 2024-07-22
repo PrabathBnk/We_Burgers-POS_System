@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styles-update.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="onLoadFunc()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -61,48 +61,51 @@
     <main class="position-absolute top-0 end-0">
         <div class="container mt-md-5">
             <div class="row">
-                <h2 class="heading-option mt-5">Update Item</h2>
+                <h2 id="heading" class="heading-option mt-5">Update Order</h2>
             </div>
             <div class="searchbar box box-shadow w-auto mt-4">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchbar" class="search-text" type="text" placeholder="Search Item">
+                <i onclick="searchOrders()" class="fa-solid fa-magnifying-glass"></i>
+                <input id="searchbar" class="search-text" type="text" placeholder="Search Order by Order ID" autocomplete="off">
              </div>
             <div class="container box main-container mt-4">
                 <div class="tbl-container">
                     <table class="details-table w-100">
                         <tr>
-                            <th>Order ID Code</th>
-                            <td class="restricted">O0001</td>
+                            <th>Order ID</th>
+                            <td id="orderID" class="restricted"></td>
                         </tr>
                         <tr>
                             <th>Customer ID</th>
-                            <td><input class="txt-input" type="text" value="0000000000"></td>
+                            <td><input id="customerID" class="txt-input" type="text" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <th>Net Amount</th>
-                            <td>00</td>
+                            <td id="netTotal"></td>
                         </tr>
                         <tr>
                             <th>Discount</th>
-                            <td><input class="txt-input" type="text" value="00"></td>
+                            <td><input id="discount" class="txt-input" onkeypress="callSetNetTotal(event)" onchange="setNetTotal()" type="number" min="0" autocomplete="off"></td>
                         </tr>
                         <tr>
                             <th>Date amd time</th>
-                            <td>00/00/0000 - 00:00</td>
+                            <td id="dateTime" class="restricted"></td>
                         </tr>
                         <tr>
                             <th>Item Details</th>
-                            <td><a class="items-link" href="item_details/index.html">View Details</a></td>
+                            <td id="itemDetails"></td>
                         </tr>
                     </table>
                 </div>
                 <div class="row  btn-container">
-                    <button class="btn btn-main-func me-4">Update Order</button>
-                    <button class="btn btn-sec-func">Back</button>
+                    <button id="btnMainFunc" onclick="updateOrder()" class="btn btn-main-func me-4" disabled>Update Order</button>
+                    <button onclick="test()" class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
+        <div class="position-fixed top-0 end-0 z-n1 main-bg"></div>
    </main>
-   <script src="/js/app-items.js"></script>
+
+   <script src="/js/app.js"></script>
+   <script src="/js/app-search-order.js"></script>
 </body>
 </html> 
