@@ -36,7 +36,7 @@ document.getElementById("searchIcon").addEventListener("click", function(){
     let result;
     if(!isEmpty(searchInfo)){
         items.forEach(element => {
-            if(element.name == searchInfo || element.itemCode == searchInfo){
+            if(element.name.toLowerCase() == searchInfo.toLowerCase() || element.itemCode.toLowerCase() == searchInfo.toLowerCase()){
                 result = element;
             }
         });

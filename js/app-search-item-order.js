@@ -141,7 +141,8 @@ setItemToOrder = (event)=>{
                             <td class="qty"><input onchange="calcTotAmount(event)" type="number" min="1" value="1"></td>
                             <td>${isEmpty(item.discount) ? "-":  item.discount + "%"}</td>
                             <td>${(orderItemList[orderItemList.length-1].totalAmount).toFixed(2)}</td>
-                            <td class="remove-btn"><button id="btnRemoveItem" onclick="removeItem(event)" class="btn">-</button><td>`;
+                            <td class="remove-btn"><button id="btnRemoveItem" onclick="removeItem(event)" class="btn">-</button><td>
+                        </tr>`;
 
     
     document.getElementById("searchbar").value = "";

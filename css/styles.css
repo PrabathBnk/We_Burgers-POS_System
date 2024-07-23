@@ -144,7 +144,7 @@ a{
 }
 
 .fa-bell{
-    color: var(--gray-ton-1);
+    color: var(--gray-ton-2);
     font-size: clamp(0.6rem, 2.5vw, 1.2rem);
     transition: color 0.2s;
 }
@@ -152,6 +152,16 @@ a{
 .searchbar i:hover, .fa-bell:hover{
     color: var(--gray-ton-hover-2);
     cursor: pointer;
+}
+
+.exp-items-count{
+    width: 15px;
+    height: 15px;
+    margin-top: -17px;
+    margin-left: 12px;
+    background-color: var(--red);
+    color: #FFF;
+    font-size: 12px;
 }
 
 /* Heading */

@@ -72,3 +72,7 @@ tbody td{
     padding-left: min(5px);
 }
 
+.large-table-body{
+    height: 87%;
+}
+

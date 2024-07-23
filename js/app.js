@@ -1,7 +1,7 @@
 let db;
 
 let itemList;
-
+let expiredItems = [];
 const openRequest = indexedDB.open("we_burgers", 1);
 
 openRequest.onupgradeneeded = (event)=>{
@@ -39,13 +39,38 @@ openRequest.onupgradeneeded = (event)=>{
 }
 
 openRequest.onsuccess = ()=>{
-    //console.log("Database opened successfully");
     let getItemRequest  = openRequest.result.transaction("item_os").objectStore("item_os").getAll()
     
     getItemRequest.onsuccess = ()=>{
         itemList = getItemRequest.result;
+
+        let today = getToday();
+        itemList.forEach(element => {
+            if (Date.parse(element.expDate) <= Date.parse(today)) {
+                expiredItems.push(element);
+            }
+        });
     }
 }
+
+expiredNotification = ()=>{
+    setTimeout(() => {
+        if(expiredItems.length > 0){
+            document.getElementById("expItemCount").innerHTML = expiredItems.length;
+            document.getElementById("expItemCount").classList.remove("opacity-0");
+        }else{
+            document.getElementById("expItemCount").classList.add("opacity-0");
+        }
+    }, 10);
+}
+
+//--------------------------------Get Today-----------------------------
+getToday = ()=>{
+    let date = new Date();
+    let today = date.getFullYear() + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2);
+    
+    return today;
+} 
 
 let items;
 let itemCode;
@@ -170,7 +195,9 @@ deleteItem = ()=>{
             const deleteObj = objectStore.delete(searchResult.itemCode);
 
             deleteObj.onsuccess = ()=>{
-                document.getElementById("btnMainFunc").disabled = true;
+                if(document.getElementById("btnMainFunc") !== null){
+                    document.getElementById("btnMainFunc").disabled = true;
+                }
                 location.reload();
             }
             searchResult = undefined;
