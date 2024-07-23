@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/styels-view.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="viewCustomerOrders()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -21,7 +21,7 @@
                     <p class="mb-0">Home</p>
                 </div>
             </a>
-            <a href="#">
+            <a href="/orders/index.html">
                 <div class="row page align-items-center flex-nowrap">
                     <i class="fa-solid fa-dollar-sign"></i>
                     <p class="mb-0">Orders</p>
@@ -63,38 +63,38 @@
         <div class="container mt-md-5">
             <div class="row">
                 <h2 class="heading-option m-0 mt-3">View Customers - Orders</h2>
-                <h4 class="order-id-text m-0">Customer ID | 0000000000</h4>
+                <h4 class="order-id-text m-0">Customer ID | <span id="customerID"></span></h4>
             </div>
             <div class="searchbar box box-shadow w-auto mt-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input id="searchbar" class="search-text" type="text" placeholder="Search Order">
              </div>
             <div class="container box main-container mt-4">
-                <table class="w-100">
-                    <thead>
-                        <tr class="caption text-center">
-                            <th>No</th>
-                            <th>Order ID</th>
-                            <th>Customer ID</th>
-                            <th>Net Amount</th>
-                            <th>Discount</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Item Details</th> 
-                        </tr>
-                    </thead>
-                </table>
                 <div class="table-body">
                     <table class="w-100">
-                        <tbody id="viewTableDetails"></tbody>
+                        <thead>
+                            <tr class="caption text-center">
+                                <th>No</th>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Net Amount</th>
+                                <th>Discount</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Item Details</th> 
+                            </tr>
+                        </thead>
+                        <tbody id="viewTblBody"></tbody>
                     </table>
                 </div>
                 <div class="row  btn-container mt-4 me-4">
-                    <button class="btn btn-sec-func">Back</button>
+                    <button onclick="backToViewCustomer()" class="btn btn-sec-func">Back</button>
                 </div>
             </div>
         </div>
+        <div class="position-fixed top-0 end-0 z-n1 main-bg"></div>
    </main>
-   <script src="/js/app-items.js"></script>
+   <script src="/js/app.js"></script>
+   <script src="/js/app-view-order-customer.js"></script>
 </body>
 </html>

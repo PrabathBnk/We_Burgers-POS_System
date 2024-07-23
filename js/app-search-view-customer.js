@@ -56,7 +56,7 @@ setTimeout(() => {
                     <td>${resultArray[i].customerID}</td>
                     <td>${resultArray[i].name}</td>
                     <td>${resultArray[i].address}</td>
-                    <td><a class="items-link">0000</a></td>
+                    <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(resultArray[i].customerID)}</a></td>
                 </tr>`
     };
 
@@ -69,3 +69,25 @@ document.getElementById("searchbar").addEventListener("keydown", function(event)
         document.getElementById("searchbar").dispatchEvent(new Event("keypress"));
     }
 });
+
+
+calcTotPurchases = (customerID)=>{
+    let totPurchases = 0;
+    orders.forEach(element => {
+        if(element.customerID == customerID){
+            totPurchases += parseFloat(element.netAmount);
+        }
+    });
+
+    return totPurchases;
+}
+
+toOrders = (event)=>{
+    if(parseFloat(event.target.innerHTML) > 0){
+        let customerID = event.target.parentElement.parentElement.children[1].innerHTML;
+        localStorage.setItem("customerID", customerID);
+        location.href = "order_details/index.html";
+    }
+}
+
+

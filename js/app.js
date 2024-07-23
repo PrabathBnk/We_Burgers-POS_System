@@ -375,6 +375,7 @@ updateCustomer = ()=>{
 //-----------------------------View Customers-----------------------
 let customerList;
 viewAllCustomers = ()=>{
+    getOrders();
     objectStore = openRequest.result.transaction("customer_os", "readonly").objectStore("customer_os");
 
     let getAllRequest = objectStore.getAll();
@@ -387,7 +388,7 @@ viewAllCustomers = ()=>{
                             <td>${customerList[i].customerID}</td>
                             <td>${customerList[i].name}</td>
                             <td>${customerList[i].address}</td>
-                            <td><a class="items-link">0000</a></td>
+                            <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(customerList[i].customerID)}</a></td>
                         </tr>`
         }
 
