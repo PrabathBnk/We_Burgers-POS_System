@@ -576,3 +576,15 @@ test = ()=>{
     }, 10);
 }
 
+//-----------------Option List--------------
+optionList = (event)=>{
+    let list = document.getElementById("optionList" + event.target.id);
+    let classList = list.classList;
+    if(classList[classList.length - 1] != "list-opened"){
+        list.classList.add("list-opened");
+        event.target.classList.add("rotateDown")
+    }else{
+        list.classList.remove("list-opened");
+        event.target.classList.remove("rotateDown")
+    }
+}

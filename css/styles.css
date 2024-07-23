@@ -67,7 +67,13 @@
 }
 
 .fa-chevron-down{
+    rotate: -90deg;
     float: inline-end;
+    transition: rotate 0.2s;
+}
+
+.rotateDown{
+    rotate: 0deg;
 }
 
 main{
@@ -83,7 +89,6 @@ a{
 
 .page:hover{
     background-color: var(--gray-ton-hover);
-    cursor: pointer;
 }
 
 .page-selected:hover{
@@ -96,6 +101,20 @@ a{
     background-color: #EAEAEB;
 }
 
+.page-selected .fa-chevron-down:hover{
+    cursor: pointer;
+    color: #e9a71a;
+}
+
+.fa-chevron-down:hover{
+    cursor: pointer;
+
+}
+
+.main-page{
+    display: ruby;
+    color: var(--yellow-primary);
+}
 
 /* ------------------Search Bar------------------*/
 .searchbar{
@@ -240,31 +259,65 @@ a{
 /* Option List */
 .option-list{
     font-size: clamp(0.5rem, 2vw, 1.1rem);
+    border-radius: 15px;
+    margin-bottom: min(10px);
+    background-color: var(--gray-ton-hover);
+    padding: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.list-opened{
+    opacity: 1;
+    height: unset;
     padding-block: min(20px);
     padding-left: min(5px);
-    border-radius: 15px;
-    background-color: var(--yellow-secondry);
+    transform: translateY(0);
 }
 
 .option-list ul{
     list-style: none;
     line-height: min(45px);
-    border-left: 2px solid #FFD06A;
+    border-left: 2px solid var(--gray-ton-2);
     padding-left: min(15px);
     margin-left: min(2rem);
 }
 
 .option-list ul a{
-    color: #FDD375 !important;
+    color: var(--gray-ton-2) !important;
     transition: color 0.3s;
 }
 
 .option-list ul a:hover{
-    color: #ecb337 !important;
+    color: var(--gray-ton-1) !important;
 }
 
 .selected-option{
     color: #CA9A2E;
+}
+
+/* Selected */
+.selected{
+    background-color: var(--yellow-secondry);
+}
+
+.selected ul{
+    border-left: 2px solid #FFD06A;
+}
+
+.selected ul a{
+    color: #FDD375 !important;
+    transition: color 0.3s;
+}
+
+.selected ul a:hover{
+    color: #ecb337 !important;
+}
+
+.unselected{
+    color: var(--gray-ton-2);
 }
 
 /* Option page heading */
@@ -448,6 +501,7 @@ th, td{
 canvas{
     margin: auto;
 }
+
 
 @media (max-width: 1366px){
     main{
