@@ -56,7 +56,7 @@ setTimeout(() => {
                     <td>${resultArray[i].customerID}</td>
                     <td>${resultArray[i].name}</td>
                     <td>${resultArray[i].address}</td>
-                    <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(resultArray[i].customerID)}</a></td>
+                    <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(resultArray[i].customerID).toFixed(2)}</a></td>
                 </tr>`
     };
 

@@ -18,26 +18,18 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
             
            if(i == 0){
                orders.forEach(element => {
-                   if((search[0] == element.orderID[0].toLowerCase()) || (search[0] == element.customerID[0].toLowerCase())){
+                   if((search[0] == element.orderID[0].toLowerCase())){
                        resultArray.push(element);
                    }
                });
-           }else if(resultArray.length != 0){
+           }else if(resultArray.length != 0 && 5 >= search.length){
                let tempArray = [];
     
-                if(5 >= search.length && search[0].toLowerCase() == "o"){
-                    resultArray.forEach(element => {
-                        if(search[i] == element.orderID[i].toLowerCase()){
-                            tempArray.push(element);
-                        }
-                    });
-                }else if(10 >= search.length){
-                    resultArray.forEach(element => {
-                        if((search[i] == element.customerID[i].toLowerCase())){
-                            tempArray.push(element);
-                        }
-                    });
-                }
+                resultArray.forEach(element => {
+                    if(search[i] == element.orderID[i].toLowerCase()){
+                        tempArray.push(element);
+                    }
+                });
                 
                resultArray = tempArray;
            }
@@ -48,7 +40,6 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
         resultBody += `<tr>
                             <td>${i+1}</td>
                             <td>${resultArray[i].orderID}</td>
-                            <td>${resultArray[i].customerID}</td>
                             <td>${parseFloat(resultArray[i].netAmount).toFixed(2)}</td>
                             <td>${isEmpty(resultArray[i].discount) || parseFloat(resultArray[i].discount) == 0 ? "-": resultArray[i].discount}</td>
                             <td>${resultArray[i].date}</td>
@@ -105,7 +96,6 @@ viewAllOrders = (orders)=>{
         tblBody += `<tr>
                         <td>${i+1}</td>
                         <td>${orders[i].orderID}</td>
-                        <td>${orders[i].customerID}</td>
                         <td>${parseFloat(orders[i].netAmount).toFixed(2)}</td>
                         <td>${isEmpty(orders[i].discount) || parseFloat(orders[i].discount) == 0 ? "-": orders[i].discount}</td>
                         <td>${orders[i].date}</td>

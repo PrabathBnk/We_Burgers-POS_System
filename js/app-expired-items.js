@@ -12,7 +12,6 @@ viewExpiredItems = ()=>{
                         <td class="remove-btn"><button id="btnRemoveItem" onclick="removeItem(event)" class="btn">-</button><td>
                     </tr>`;
     }
-    console.log(expiredItems);
     document.getElementById("viewItemsBody").innerHTML = tblBody;
 }
 
@@ -22,7 +21,4 @@ removeItem = (event)=>{
     searchResult = expiredItems[itemNo-1];
     deleteItem();
     expiredItems.splice[itemNo-1, itemNo];
-    console.log(expiredItems);
-
-    
 }

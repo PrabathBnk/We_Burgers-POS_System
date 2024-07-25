@@ -53,6 +53,10 @@ openRequest.onsuccess = ()=>{
     }
 }
 
+document.getElementsByClassName("slidebar-logo")[0].addEventListener("click", function(){
+    location.href = "/home/index.html";
+});
+
 expiredNotification = ()=>{
     setTimeout(() => {
         if(expiredItems.length > 0){
@@ -424,7 +428,7 @@ viewAllCustomers = ()=>{
                             <td>${customerList[i].customerID}</td>
                             <td>${customerList[i].name}</td>
                             <td>${customerList[i].address}</td>
-                            <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(customerList[i].customerID)}</a></td>
+                            <td><a class="items-link" onclick="toOrders(event)">${calcTotPurchases(customerList[i].customerID).toFixed(2)}</a></td>
                         </tr>`
         }
 
