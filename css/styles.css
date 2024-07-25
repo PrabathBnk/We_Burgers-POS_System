@@ -183,6 +183,16 @@ a{
     font-size: 12px;
 }
 
+.home-img{
+    width: 93%;
+    border-radius: 26px;
+    transition: box-shadow 0.2s;
+}
+
+.home-img:hover{
+    box-shadow: 0 5px 18px #00000015;
+}
+
 /* Heading */
 .welcome-head{
     position: relative;
