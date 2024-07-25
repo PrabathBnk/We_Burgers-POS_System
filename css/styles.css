@@ -207,7 +207,7 @@ a{
 
 /* Info Box */
 .info-box{
-    width: min(18rem);
+    width: min(20rem);
     height: min(18rem);
 }
 
@@ -226,6 +226,11 @@ a{
     font-size: clamp(0.5rem, 2vw, 1.2rem);
     top: 10px;
 }
+
+.info-box-large{
+    width: min(27rem);
+}
+
 
 .border-bottom{
     border: 1px solid #C0BFC3;
@@ -539,4 +544,13 @@ canvas{
     main{
         width: 100vw;
     }
+}
+
+body{
+    animation: loadPage 0.2s linear;
+}
+
+@keyframes loadPage {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
 }

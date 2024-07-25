@@ -39,10 +39,13 @@ openRequest.onupgradeneeded = (event)=>{
 }
 
 openRequest.onsuccess = ()=>{
+    let getOrderReuest = openRequest.result.transaction("order_os").objectStore("order_os").getAll()
+    let getCustomerReuest = openRequest.result.transaction("customer_os").objectStore("customer_os").getAll()
     let getItemRequest  = openRequest.result.transaction("item_os").objectStore("item_os").getAll()
     
     getItemRequest.onsuccess = ()=>{
         itemList = getItemRequest.result;
+        localStorage.setItem("items", JSON.stringify(getItemRequest.result));
 
         let today = getToday();
         itemList.forEach(element => {
@@ -50,6 +53,15 @@ openRequest.onsuccess = ()=>{
                 expiredItems.push(element);
             }
         });
+    }
+
+    getCustomerReuest.onsuccess = ()=>{
+        let customers = getCustomerReuest.result;
+        localStorage.setItem("customers", JSON.stringify(customers));
+    }
+    getOrderReuest.onsuccess = ()=>{
+        let orders = getOrderReuest.result;
+        localStorage.setItem("orders", JSON.stringify(orders));
     }
 }
 
@@ -676,6 +688,7 @@ isExpiredItem = (item)=>{
 
 //----------------Is Out of Stock Item---------------
 isOutOfStockItem = (item)=>{
+    let items = JSON.parse(localStorage.getItem("items"));
     let isOutOfStock = false;
     items.forEach(element => {
         if(element.itemCode == item.itemCode){
@@ -686,3 +699,57 @@ isOutOfStockItem = (item)=>{
     });
     return isOutOfStock;
 }
+
+
+//------------------Set Data to Pages-------------------
+setOrdersData = ()=>{
+    let orders = JSON.parse(localStorage.getItem("orders"));
+    
+    setTimeout(() => {
+        document.getElementById("totalOrders").innerHTML = orders.length < 10 ? ("00" + orders.length).slice(-2) : orders.length;
+        let total = 0;
+        orders.forEach(element => {
+            total += parseFloat(element.netAmount);
+        });
+
+        if(total >= 1000000){
+            total = (total / 1000000).toFixed(1);
+            total += "M";
+        }else if(total >= 10000){
+            total = (total / 1000).toFixed(1);
+            total += "K";
+        }
+
+        document.getElementById("totalOrderAmout").innerHTML = total;
+    }, 10);
+}
+
+setItemsData = ()=>{
+    let items = JSON.parse(localStorage.getItem("items"));
+    
+    setTimeout(() => {
+        document.getElementById("totalItems").innerHTML = items.length < 10 ? ("00" + items.length).slice(-2) : items.length;
+        document.getElementById("totalExpiredItems").innerHTML = expiredItems.length < 10 ? ("00" + expiredItems.length).slice(-2) : expiredItems.length;
+        let totOutOfStockItems = 0;
+        
+        if(items.length != 0){
+            items.forEach(element => {
+                if(isOutOfStockItem(element)){
+                    totOutOfStockItems++;
+                }
+            });
+        }
+        
+        document.getElementById("totalOutOfStockItems").innerHTML = totOutOfStockItems < 10 ? ("00" + totOutOfStockItems).slice(-2) : totOutOfStockItems;
+
+    }, 10);
+}
+
+setCustomersData = ()=>{
+    let customers = JSON.parse(localStorage.getItem("customers"));
+
+    setTimeout(() => {
+        document.getElementById("totalCustomers").innerHTML = customers.length < 10 ? ("00" + customers.length).slice(-2) : customers.length;
+    }, 10);
+}
+

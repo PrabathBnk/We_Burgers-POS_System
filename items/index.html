@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="setItemsData()">
     <div class="container-fluid slidebar-container d-grid">
         <div class="row">
             <img class="slidebar-logo w-75" src="/img/full_logo.svg" alt="">
@@ -84,15 +84,15 @@
            </div>
            <div class="row mt-5 gap-5 justify-content-center pb-5">
             <div class="d-flex flex-wrap justify-content-center col-md-4 box info-box box-shadow">
-                <h2 class="position-relative" id="totalItems">00</h2>
+                <h2 class="position-relative" id="totalItems"></h2>
                 <p class="text-center position-relative">Total Items</p>
             </div>
             <div class="d-flex flex-wrap justify-content-center col-md-4 box info-box box-shadow">
-                <h2 class="position-relative" id="totalItems">00</h2>
+                <h2 class="position-relative" id="totalExpiredItems"></h2>
                 <p class="text-center position-relative">Expired Items</p>
             </div>
             <div class="d-flex flex-wrap justify-content-center col-md-4 box info-box box-shadow">
-                <h2 class="position-relative" id="totalItems">00</h2>
+                <h2 class="position-relative" id="totalOutOfStockItems"></h2>
                 <p class="text-center position-relative">Out of Stock Items</p>
             </div>
            </div>
