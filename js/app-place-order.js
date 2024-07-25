@@ -50,7 +50,7 @@ document.getElementById("payment").addEventListener("keydown", function(event){
 enableBtnContinue = ()=>{
     let balance = parseFloat(document.getElementById("balance").innerHTML);
 
-    if(!isNaN(balance) && balance > 0 && orderItemList.length > 0){
+    if(!isNaN(balance) && balance >= 0 && orderItemList.length > 0){
         document.getElementById("btnContinue").disabled = false;
     }else{
         document.getElementById("btnContinue").disabled = true;
@@ -58,26 +58,46 @@ enableBtnContinue = ()=>{
 }
 
 document.getElementById("btnContinue").addEventListener("click", function(){
+    let itemDetailsList = [];
+    for (let i = 0; i < orderItemList.length; i++) {
+        let tr = document.getElementById("orderItems").children[i];
+        let item = {
+            no: orderItemList[i].no,
+            itemCode: orderItemList[i].itemCode,
+            name: tr.children[2].innerHTML,
+            price: tr.children[3].innerHTML,
+            qty: orderItemList[i].qty,
+            discount: tr.children[5].innerHTML,
+            totalAmount: orderItemList[i].totalAmount
+        }
+        itemDetailsList.push(item);
+    }
+    console.log(itemDetailsList);
+
+    if(isInsufficientStock(itemDetailsList)) return;
+
     getCustomers();
     let customerID = prompt("Enter Customer ID: ")
     if(isValidCustomer(customerID)){
-        let itemDetailsList = [];
-    
-        for (let i = 0; i < orderItemList.length; i++) {
-            let tr = document.getElementById("orderItems").children[i];
+        
 
-            let item = {
-                no: orderItemList[i].no,
-                itemCode: orderItemList[i].itemCode,
-                name: tr.children[2].innerHTML,
-                price: tr.children[3].innerHTML,
-                qty: orderItemList[i].qty,
-                discount: tr.children[5].innerHTML,
-                totalAmount: orderItemList[i].totalAmount
+        let itemStore = openRequest.result.transaction("item_os", "readwrite").objectStore("item_os");
+
+        itemDetailsList.forEach(element => {
+            let getRequest = itemStore.get(element.itemCode);
+
+            getRequest.onsuccess = ()=>{
+                let item = getRequest.result;
+                item.qty -= element.qty;
+
+                let updateRequest = itemStore.put(item);
+                updateRequest.transaction;
+
+                updateRequest.onsuccess = ()=>{
+                    console.log("DONE");
+                }
             }
-
-            itemDetailsList.push(item);
-        }
+        });
 
         let otherDetails = document.getElementById("otherOrderDetails").children[0];
         console.log(otherDetails.children);

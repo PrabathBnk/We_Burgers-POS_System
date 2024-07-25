@@ -109,7 +109,7 @@
                         </tr>
                         <tr>
                             <th>Expiration Date</th>
-                            <td><input id="expDate" class="txt-input" type="date" autocomplete="off" ></td>
+                            <td><input id="expDate" class="txt-input" type="date" min="" autocomplete="off" ></td>
                         </tr>
                     </table>
                 </div>
@@ -124,5 +124,8 @@
    
    <script src="/js/app.js"></script>
    <script src="/js/app-search.js"></script>
+   <script>
+        document.getElementById("expDate").min = getToday();
+   </script>
 </body>
 </html>

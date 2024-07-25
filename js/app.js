@@ -216,7 +216,6 @@ updateItem = ()=>{
             const getObj = objectStore.get(searchResult.itemCode);
             
             getObj.onsuccess = ()=>{    
-                console.log(items);
                 let data = getObj.result;
 
                 data.name = fields[1].value != searchResult.name ? fields[1].value : searchResult.name;
@@ -247,8 +246,10 @@ viewAllItems = ()=>{
     let tblBody = ``;
     getAllRequest.onsuccess = ()=>{
         itemList = getAllRequest.result;
+        items = itemList;
         for (let i = 0; i < itemList.length; i++) {
-            tblBody += `<tr>
+            let isInvalidItem = isExpiredItem(itemList[i]) || isOutOfStockItem(itemList[i]);
+            tblBody += `<tr class="${isInvalidItem ? "warning": ""}">
                             <td>${i+1}</td>
                             <td>${itemList[i].itemCode}</td>
                             <td>${itemList[i].name}</td>
@@ -264,6 +265,14 @@ viewAllItems = ()=>{
 }
 
 
+//-----------------------------Get All Items-------------------------
+getItems = ()=>{
+    let objectStore = openRequest.result.transaction("item_os").objectStore("item_os");
+    let getRequest = objectStore.getAll();
+    getRequest.onsuccess = ()=>{
+        items = getRequest.result;
+    }
+}
 
 //----------------------------Get All Customers-------------------------
 let customers;
@@ -428,6 +437,8 @@ viewAllCustomers = ()=>{
 let orderDate;
 let orderTime;
 generateOrderID = ()=>{
+    getItems();
+
     let objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
     let getRequest = objectStore.getAll();
 
@@ -479,7 +490,6 @@ let orders;
 //--------------------------Get All Orders----------------------
 getOrders = ()=>{
     let objectStore = openRequest.result.transaction("order_os").objectStore("order_os");
-
     let getRequest = objectStore.getAll();
 
     getRequest.onsuccess = ()=>{
@@ -512,6 +522,7 @@ updateOrder = ()=>{
     let result = JSON.parse(localStorage.getItem("result"));
     let customerID = fields[1].value;
     let discount = fields[3].value == "" ? 0: fields[3].valueAsNumber;
+    let newItemDetails = result.itemDetails;
 
     if(result.customerID != customerID && isNumberExists(customerID)){
         alert("A customer already exists with this Conatct Number.")
@@ -519,16 +530,33 @@ updateOrder = ()=>{
         alert("Invalid discount amount.")
     }else{
         const objectStore = openRequest.result.transaction("order_os", "readwrite").objectStore("order_os");
-
         const getObj = objectStore.get(result.orderID);
         
         getObj.onsuccess = ()=>{   
             let data = getObj.result;
 
+            let currentItemDetails = data.itemDetails;
+
+            const itemObjectStore = openRequest.result.transaction("item_os", "readwrite").objectStore("item_os");
+            for (let i = 0; i < newItemDetails.length; i++) {
+                let getRequest = itemObjectStore.get(newItemDetails[i].itemCode);
+            
+                getRequest.onsuccess = ()=>{
+                    let item = getRequest.result;
+                    item.qty = parseFloat(item.qty) + (currentItemDetails[i].qty - newItemDetails[i].qty);
+                    let updateRequest = itemObjectStore.put(item);
+                    updateRequest.transaction;
+    
+                    updateRequest.onsuccess = ()=>{
+                        console.log("DONE");
+                    }
+                }
+            }
+
             data.customerID = customerID;
-            data.discount = discount.toString();
+            data.discount = discount == 0 ? "" : discount.toString();
             data.netAmount = fields[2].innerHTML;
-            data.itemDetails = result.itemDetails;
+            data.itemDetails = newItemDetails;
 
             const updateRequest = objectStore.put(data);
             updateRequest.transaction;
@@ -587,4 +615,41 @@ optionList = (event)=>{
         list.classList.remove("list-opened");
         event.target.classList.remove("rotateDown")
     }
+}
+
+//----------------------Insufficient Item Quantity--------------------
+isInsufficientStock = (newItemDetails)=>{
+    for (let i = 0; i < newItemDetails.length; i++) {
+        if(items[i].itemCode == newItemDetails[i].itemCode){
+            if(items[i].qty < newItemDetails[i].qty){
+                alert("Insufficient Item Quantity: " + newItemDetails[i].itemCode);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+//-----------------Is Expired Item-------------------
+isExpiredItem = (item)=>{
+    let isExpired = false;
+    expiredItems.forEach(element => {
+        if(element.itemCode == item.itemCode){
+            isExpired = true;
+        }
+    });
+    return isExpired;
+}
+
+//----------------Is Out of Stock Item---------------
+isOutOfStockItem = (item)=>{
+    let isOutOfStock = false;
+    items.forEach(element => {
+        if(element.itemCode == item.itemCode){
+            if(element.qty == 0){
+                isOutOfStock = true;
+            }
+        }
+    });
+    return isOutOfStock;
 }

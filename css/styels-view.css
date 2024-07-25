@@ -76,3 +76,6 @@ tbody td{
     height: 87%;
 }
 
+.warning{
+    background-color: #ffc9c9 !important;
+}

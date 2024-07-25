@@ -109,6 +109,8 @@ onItemDetailsLoad = ()=>{
 }
 
 onUpdateItemDetailsLoad = ()=>{
+    getItems();
+
     let result = JSON.parse(localStorage.getItem("result"));
     
     document.getElementById("orderID").innerHTML = result.orderID;
@@ -158,9 +160,23 @@ itemDetailsBack = ()=>{
 }
 
 updateItemDetails = ()=>{
+    let tblBody = document.getElementById("orderItemDetails");
+    let newItemDetails = [];
+
+    for (let i = 0; i < tblBody.children.length; i++) {
+        newItemDetails.push({
+            no: i+1,
+            itemCode: tblBody.children[i].children[1].innerHTML,
+            qty: tblBody.children[i].children[4].firstChild.valueAsNumber,
+            totalAmount: parseFloat(tblBody.children[i].children[6].innerHTML)
+        });
+    }
+  
+    if(isInsufficientStock(newItemDetails)) return;
+    
     if(confirm("Update Item Details?")){
-        let tblBody = document.getElementById("viewItemDetails");
         let result = JSON.parse(localStorage.getItem("result"));
+        
 
         for (let i = 0; i < result.itemDetails.length; i++) {
             result.itemDetails[i].qty = tblBody.children[i].children[4].firstChild.valueAsNumber;
@@ -170,6 +186,7 @@ updateItemDetails = ()=>{
         localStorage.setItem("result", JSON.stringify(result));
     }
 }
+
 
 itemDetailsBackUpdate = ()=>{
     localStorage.setItem("isBack", true);

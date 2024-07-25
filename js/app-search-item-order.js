@@ -66,9 +66,10 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
        }else{
         document.getElementById("resultContainer").hidden = true;
        }
-
+       
        for (let i = 0; i < resultArray.length; i++) {
-            resultBody += `<tr id="${"item" + i}" onclick="setItemToOrder(event)">
+            let isInvalidItem = isExpiredItem(resultArray[i]) || isOutOfStockItem(resultArray[i]);
+            resultBody += `<tr id="${"item" + i}" class="${isInvalidItem ? "warning": ""}" onclick="${isInvalidItem ? "": "setItemToOrder(event)"}">
                                 <td>${resultArray[i].itemCode}</td>
                                 <td>${resultArray[i].name}</td>
                                 <td class="price">${parseFloat(resultArray[i].price).toFixed(2)}</td>

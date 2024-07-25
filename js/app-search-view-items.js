@@ -51,7 +51,8 @@ setTimeout(() => {
 
    let resultBody = ``;
    for (let i = 0; i < resultArray.length; i++) {
-    resultBody += `<tr>
+    let isInvalidItem = isExpiredItem(resultArray[i]) || isOutOfStockItem(resultArray[i]);
+    resultBody += `<tr class="${isInvalidItem ? "warning": ""}">
                         <td>${i+1}</td>
                         <td>${resultArray[i].itemCode}</td>
                         <td>${resultArray[i].name}</td>
