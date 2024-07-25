@@ -81,11 +81,25 @@ let itemCode;
 
 //-----------------------------Generate Item Code--------------------------------
 setItemCode = ()=>{
-    let transaction = openRequest.result.transaction("item_os");
-    const objectStore = transaction.objectStore("item_os");
+    let objectStore;
+    let getRequest;
 
-    
-    const getRequest = objectStore.getAll();
+    try {
+        objectStore = openRequest.result.transaction("item_os").objectStore("item_os");
+        getRequest = objectStore.getAll();
+    } catch (error) {
+        location.reload();
+    } finally{
+        setTimeout(() => {
+            document.getElementById("loader").style.visibility = "visible";
+        }, 5);
+        setTimeout(() => {
+            let img = document.getElementById("loader").children[0];
+            let loaderbg = document.getElementById("loader").children[1];
+            document.getElementById("loader").style.visibility = "hidden";
+        }, 1000);
+    }
+
     getRequest.onsuccess = ()=>{
         items = getRequest.result;
         itemCode = "B" + (1000 + items.length + 1);
@@ -440,11 +454,26 @@ viewAllCustomers = ()=>{
 //-------------------------Generate Order ID--------------------------
 let orderDate;
 let orderTime;
-generateOrderID = ()=>{
-    getItems();
+generateOrderID = ()=>{ 
+    let objectStore;
+    let getRequest;
+    
+    try {
+        getItems();
+        objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
+        getRequest = objectStore.getAll();   
+    } catch (error) {
+        location.reload();
+    } finally{
+        document.getElementById("loader").style.visibility = "visible";
+        setTimeout(() => {
+            let img = document.getElementById("loader").children[0];
+            let loaderbg = document.getElementById("loader").children[1];
+            document.getElementById("loader").style.visibility = "hidden";
+        }, 1000);
+    }
 
-    let objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
-    let getRequest = objectStore.getAll();
+    
 
     getRequest.onsuccess = ()=>{
         let orderID = document.getElementById("orderID");
@@ -468,7 +497,7 @@ generateOrderID = ()=>{
 
     //------------------Set Date and Time-----------------
     const date = new Date(Date());
-    document.getElementById("dateAndTime").innerHTML = `Date: ${orderDate = date.toLocaleDateString()}<br>Time ${orderTime = date.toLocaleTimeString()}`
+    document.getElementById("dateAndTime").innerHTML = `Date: ${orderDate = date.toLocaleDateString()}<br>Time ${orderTime = date.toLocaleTimeString()}`;
 }
 
 

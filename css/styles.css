@@ -503,6 +503,32 @@ canvas{
 }
 
 
+/* Loading Animation */
+.loader{
+    visibility: hidden;
+}
+
+.loader img{
+    z-index: 5;
+    width: 6%;
+    animation: loading 1s linear infinite;
+}
+
+.loader-bg{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.5;
+    position: fixed;
+}
+
+@keyframes loading {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+
 @media (max-width: 1366px){
     main{
         max-width: 75vw;
