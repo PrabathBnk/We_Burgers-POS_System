@@ -72,6 +72,7 @@ document.getElementById("searchbar").addEventListener("keydown", function(event)
 
 
 calcTotPurchases = (customerID)=>{
+    orders = JSON.parse(localStorage.getItem("orders"));
     let totPurchases = 0;
     orders.forEach(element => {
         if(element.customerID == customerID){

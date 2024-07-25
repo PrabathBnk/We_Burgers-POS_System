@@ -1,9 +1,5 @@
-let pdfObject
+let pdfObject;
 
-let openRequest = indexedDB.open("we_burgers", 1);
-
-let orders;
-let customers;
 openRequest.onsuccess = ()=>{
     let db = openRequest.result;
 
@@ -22,6 +18,15 @@ openRequest.onsuccess = ()=>{
 }
 
 generatePDF = ()=>{
+    document.getElementById("loader").style.visibility = "visible";
+    setTimeout(() => {
+        let img = document.getElementById("loader").children[0];
+        let loaderbg = document.getElementById("loader").children[1];
+        document.getElementById("loader").style.visibility = "hidden";
+    }, 1000);
+
+    orders = JSON.parse(localStorage.getItem("orders"));
+    customers = JSON.parse(localStorage.getItem("customers"))
     setTimeout(() => {
         console.log(orders);
         console.log(customers);

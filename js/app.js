@@ -1,3 +1,9 @@
+let favicon = document.createElement("link");
+favicon.rel = "shortcut icon";
+favicon.href = "/img/favicon.ico";
+favicon.type = "image/x-icon";
+document.head.appendChild(favicon);
+
 let db;
 
 let itemList;
@@ -270,28 +276,24 @@ updateItem = ()=>{
 
 //-----------------------------View Item-----------------------
 viewAllItems = ()=>{
-    objectStore = openRequest.result.transaction("item_os", "readonly").objectStore("item_os");
+    itemList = JSON.parse(localStorage.getItem("items"));
+    items = itemList;
 
-    let getAllRequest = objectStore.getAll();
     let tblBody = ``;
-    getAllRequest.onsuccess = ()=>{
-        itemList = getAllRequest.result;
-        items = itemList;
-        for (let i = 0; i < itemList.length; i++) {
-            let isInvalidItem = isExpiredItem(itemList[i]) || isOutOfStockItem(itemList[i]);
-            tblBody += `<tr class="${isInvalidItem ? "warning": ""}">
-                            <td>${i+1}</td>
-                            <td>${itemList[i].itemCode}</td>
-                            <td>${itemList[i].name}</td>
-                            <td class="price">${parseFloat(itemList[i].price).toFixed(2)}</td>
-                            <td>${itemList[i].qty}</td>
-                            <td>${isEmpty(itemList[i].discount) ? "-":  itemList[i].discount + "%"}</td>
-                            <td>${itemList[i].expDate}</td>
-                        </tr>`
-        }
-
-        document.getElementById("viewTblBody").innerHTML = tblBody;
+    for (let i = 0; i < itemList.length; i++) {
+        let isInvalidItem = isExpiredItem(itemList[i]) || isOutOfStockItem(itemList[i]);
+        tblBody += `<tr class="${isInvalidItem ? "warning": ""}">
+                        <td>${i+1}</td>
+                        <td>${itemList[i].itemCode}</td>
+                        <td>${itemList[i].name}</td>
+                        <td class="price">${parseFloat(itemList[i].price).toFixed(2)}</td>
+                        <td>${itemList[i].qty}</td>
+                        <td>${isEmpty(itemList[i].discount) ? "-":  itemList[i].discount + "%"}</td>
+                        <td>${itemList[i].expDate}</td>
+                    </tr>`
     }
+
+    document.getElementById("viewTblBody").innerHTML = tblBody;
 }
 
 
@@ -307,14 +309,15 @@ getItems = ()=>{
 //----------------------------Get All Customers-------------------------
 let customers;
 getCustomers = ()=>{
-    let transaction = openRequest.result.transaction("customer_os");
-    const objectStore = transaction.objectStore("customer_os");
+    customers = JSON.parse(localStorage.getItem("customers"));
+    // let transaction = openRequest.result.transaction("customer_os");
+    // const objectStore = transaction.objectStore("customer_os");
 
-    const getRequest = objectStore.getAll();
+    // const getRequest = objectStore.getAll();
 
-    getRequest.onsuccess = ()=>{
-        customers = getRequest.result;
-    }
+    // getRequest.onsuccess = ()=>{
+    //     customers = getRequest.result;
+    // }
 }
 
 //--------------------------------Adding Customer------------------------
@@ -534,12 +537,13 @@ removeItem = (event)=>{
 let orders;
 //--------------------------Get All Orders----------------------
 getOrders = ()=>{
-    let objectStore = openRequest.result.transaction("order_os").objectStore("order_os");
-    let getRequest = objectStore.getAll();
+    orders = JSON.parse(localStorage.getItem("orders"));
+    // let objectStore = openRequest.result.transaction("order_os").objectStore("order_os");
+    // let getRequest = objectStore.getAll();
 
-    getRequest.onsuccess = ()=>{
-        orders = getRequest.result;
-    }
+    // getRequest.onsuccess = ()=>{
+    //     orders = getRequest.result;
+    // }
 }
 
 //-----------------------Delete Order---------------------
@@ -752,4 +756,5 @@ setCustomersData = ()=>{
         document.getElementById("totalCustomers").innerHTML = customers.length < 10 ? ("00" + customers.length).slice(-2) : customers.length;
     }, 10);
 }
+
 
