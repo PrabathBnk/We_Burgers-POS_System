@@ -4,6 +4,12 @@ favicon.href = "/img/favicon.ico";
 favicon.type = "image/x-icon";
 document.head.appendChild(favicon);
 
+document.querySelectorAll('a').forEach(link => {
+  if (link.getAttribute('href').startsWith('/')) {
+    link.setAttribute('href', '/We_Burgers-POS_System' + link.getAttribute('href'));
+  }
+});
+
 let db;
 
 let itemList;
