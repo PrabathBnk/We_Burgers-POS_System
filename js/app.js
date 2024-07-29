@@ -10,6 +10,12 @@ document.querySelectorAll('a').forEach(link => {
   }
 });
 
+document.querySelectorAll('img').forEach(link => {
+    if (link.getAttribute('src').startsWith('/')) {
+      link.setAttribute('src', '/We_Burgers-POS_System' + link.getAttribute('src'));
+    }
+});
+
 let db;
 
 let itemList;
