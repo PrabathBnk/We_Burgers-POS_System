@@ -1,6 +1,6 @@
 let favicon = document.createElement("link");
 favicon.rel = "shortcut icon";
-favicon.href = "/img/favicon.ico";
+favicon.href = "/We_Burgers-POS_System/img/favicon.ico";
 favicon.type = "image/x-icon";
 document.head.appendChild(favicon);
 
