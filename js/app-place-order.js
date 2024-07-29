@@ -117,7 +117,7 @@ document.getElementById("btnContinue").addEventListener("click", function(){
         let addRequest = objectStore.add(order);
 
         addRequest.onsuccess = ()=>{
-            location.href = "receipt/index.html";
+            location.href = "/We_Burgers-POS_System/receipt/index.html";
         }
 
     }else{

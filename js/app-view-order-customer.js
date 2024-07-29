@@ -69,7 +69,7 @@ toItemDetails = (event)=>{
     });
     localStorage.setItem("result", JSON.stringify(order));
 
-    location.href="item_details/index.html";
+    location.href="/We_Burgers-POS_System/cutomers/view_customer/orders/item_details/index.html";
 }
 
 
@@ -109,5 +109,5 @@ viewAllOrders = (orders)=>{
 
 backToViewCustomer = ()=>{
     localStorage.clear();
-    location.href = "/customers/view_customer/index.html";
+    location.href = "/We_Burgers-POS_System/customers/view_customer/index.html";
 }

@@ -156,7 +156,7 @@ calcTotAmount = (event)=>{
 
 itemDetailsBack = ()=>{
     localStorage.setItem("isBack", true);
-    location.href = "/orders/delete_order/index.html";
+    location.href = "/We_Burgers-POS_System/orders/delete_order/index.html";
 }
 
 updateItemDetails = ()=>{
@@ -190,7 +190,7 @@ updateItemDetails = ()=>{
 
 itemDetailsBackUpdate = ()=>{
     localStorage.setItem("isBack", true);
-    location.href = "/orders/update_order/index.html";
+    location.href = "/We_Burgers-POS_System/orders/update_order/index.html";
 }
 
 setNetTotal = ()=>{
@@ -298,5 +298,5 @@ searchItem = (event)=>{
 
 backToView = ()=>{
     localStorage.clear();
-    location.href = "/orders/view_order/index.html";
+    location.href = "/We_Burgers-POS_System/orders/view_order/index.html";
 }

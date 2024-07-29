@@ -84,7 +84,7 @@ openRequest.onsuccess = ()=>{
 }
 
 document.getElementsByClassName("slidebar-logo")[0].addEventListener("click", function(){
-    location.href = "/home/index.html";
+    location.href = "/We_Burgers-POS_System/home/index.html";
 });
 
 expiredNotification = ()=>{
