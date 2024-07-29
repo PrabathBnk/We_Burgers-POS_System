@@ -10,9 +10,9 @@ document.querySelectorAll('a').forEach(link => {
   }
 });
 
-document.querySelectorAll('img').forEach(link => {
-    if (link.getAttribute('src').startsWith('/')) {
-      link.setAttribute('src', '/We_Burgers-POS_System' + link.getAttribute('src'));
+document.querySelectorAll('img').forEach(image => {
+    if (image.getAttribute('src').startsWith('/')) {
+        image.setAttribute('src', '/We_Burgers-POS_System' + image.getAttribute('src'));
     }
 });
 
