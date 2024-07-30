@@ -31,7 +31,7 @@ let fields = [
 ]
 
 document.getElementById("searchIcon").addEventListener("click", function(){
-    
+    items = JSON.parse(localStorage.getItem("items"));
     let searchInfo = document.getElementById("searchbar").value;
     let result;
     if(!isEmpty(searchInfo)){

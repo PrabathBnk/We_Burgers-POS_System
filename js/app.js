@@ -71,6 +71,136 @@ openRequest.onsuccess = ()=>{
                 expiredItems.push(element);
             }
         });
+
+        if(itemList.length == 0){
+            let item_os = openRequest.result.transaction("item_os", "readwrite").objectStore("item_os");
+
+            let newItemList = [
+                {
+                    itemCode: "B1001",
+                    name: "Classic Burger (Large)",
+                    price: 750,
+                    qty: 25,
+                    discount: "",
+                    expDate: "2024-08-02" 
+                },
+                {
+                    itemCode: "B1002",
+                    name: "Classic Burger (Regular)",
+                    price: 1500,
+                    qty: 20,
+                    discount: "15",
+                    expDate: "2024-08-03" 
+                },
+                {
+                    itemCode: "B1003",
+                    name: "Turkey Burger",
+                    price: 1600,
+                    qty: 10,
+                    discount: "",
+                    expDate: "2024-08-01" 
+                },
+                {
+                    itemCode: "B1004",
+                    name: "Chicken Burger (Large)",
+                    price: 1400,
+                    qty: 20,
+                    discount: "",
+                    expDate: "2024-08-02" 
+                },
+                {
+                    itemCode: "B1005",
+                    name: "Chicken Burger (Regular)",
+                    price: 800,
+                    qty: 18,
+                    discount: "20",
+                    expDate: "2024-08-01" 
+                },
+                {
+                    itemCode: "B1006",
+                    name: "Cheese Burger (Large)",
+                    price: 1000,
+                    qty: 30,
+                    discount: "",
+                    expDate: "2024-08-05" 
+                },
+                {
+                    itemCode: "B1007",
+                    name: "Cheese Burger (Regular)",
+                    price: 600,
+                    qty: 15,
+                    discount: "",
+                    expDate: "2024-08-03" 
+                },
+                {
+                    itemCode: "B1008",
+                    name: "Baon Burger",
+                    price: 650,
+                    qty: 12,
+                    discount: "15",
+                    expDate: "2024-08-02" 
+                },
+                {
+                    itemCode: "B1009",
+                    name: "Shawarma Burger",
+                    price: 800,
+                    qty: 10,
+                    discount: "",
+                    expDate: "2024-07-28" 
+                },
+                {
+                    itemCode: "B1010",
+                    name: "Olive Burger",
+                    price: 1800,
+                    qty: 24,
+                    discount: "",
+                    expDate: "2024-08-02" 
+                },
+                {
+                    itemCode: "B1011",
+                    name: "Double-Cheese Burger",
+                    price: 1250,
+                    qty: 15,
+                    discount: "20",
+                    expDate: "2024-08-04" 
+                },
+                {
+                    itemCode: "B1012",
+                    name: "Crispy Chicken Burger (Regular)",
+                    price: 1200,
+                    qty: 20,
+                    discount: "",
+                    expDate: "2024-08-05" 
+                },
+                {
+                    itemCode: "B1013",
+                    name: "Crispy Chicken Burger (Large)",
+                    price: 1600,
+                    qty: 18,
+                    discount: "10",
+                    expDate: "2024-08-03" 
+                },
+                {
+                    itemCode: "B1014",
+                    name: "Paneer Burger",
+                    price: 900,
+                    qty: 10,
+                    discount: "",
+                    expDate: "2024-08-02" 
+                }
+            ]
+
+            newItemList.forEach(item =>{
+                let addRequest = item_os.add(item);
+                addRequest.onsuccess = ()=>{
+                    console.log("DONE");
+                }
+    
+                addRequest.onerror = ()=>{
+                    console.log(addRequest.error);
+                }
+            });
+        }
     }
 
     getCustomerReuest.onsuccess = ()=>{
@@ -132,7 +262,16 @@ setItemCode = ()=>{
 
     getRequest.onsuccess = ()=>{
         items = getRequest.result;
-        itemCode = "B" + (1000 + items.length + 1);
+
+        let no = 1001;
+
+        if(items.length != 0){
+            let lastCode = (items[items.length - 1]).itemCode;
+            no = parseInt((lastCode).slice(1,5)) + 1;
+        }
+
+        itemCode = "B" + no;
+
         document.getElementById("itemCode").innerHTML = itemCode; 
     }   
 }
