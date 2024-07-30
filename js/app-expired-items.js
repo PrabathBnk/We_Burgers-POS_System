@@ -1,5 +1,6 @@
 viewExpiredItems = ()=>{
     let tblBody = ``;
+    expiredItems = JSON.parse(localStorage.getItem("expiredItems"));
     for (let i = 0; i < expiredItems.length; i++) {
         tblBody += `<tr>
                         <td>${i + 1}</td>

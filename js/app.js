@@ -66,12 +66,13 @@ openRequest.onsuccess = ()=>{
         localStorage.setItem("items", JSON.stringify(getItemRequest.result));
 
         let today = getToday();
+        expiredItems = [];
         itemList.forEach(element => {
             if (Date.parse(element.expDate) <= Date.parse(today)) {
                 expiredItems.push(element);
             }
         });
-
+        localStorage.setItem("expiredItems", JSON.stringify(expiredItems));
         if(itemList.length == 0){
             let item_os = openRequest.result.transaction("item_os", "readwrite").objectStore("item_os");
 
@@ -218,6 +219,7 @@ document.getElementsByClassName("slidebar-logo")[0].addEventListener("click", fu
 });
 
 expiredNotification = ()=>{
+    expiredItems = JSON.parse(localStorage.getItem("expiredItems"));
     setTimeout(() => {
         if(expiredItems.length > 0){
             document.getElementById("expItemCount").innerHTML = expiredItems.length;
@@ -833,6 +835,7 @@ isInsufficientStock = (newItemDetails)=>{
 //-----------------Is Expired Item-------------------
 isExpiredItem = (item)=>{
     let isExpired = false;
+    expiredItems = JSON.parse(localStorage.getItem("expiredItems"));
     expiredItems.forEach(element => {
         if(element.itemCode == item.itemCode){
             isExpired = true;
@@ -881,7 +884,7 @@ setOrdersData = ()=>{
 
 setItemsData = ()=>{
     let items = JSON.parse(localStorage.getItem("items"));
-    
+    expiredItems = JSON.parse(localStorage.getItem("expiredItems"));
     setTimeout(() => {
         document.getElementById("totalItems").innerHTML = items.length < 10 ? ("00" + items.length).slice(-2) : items.length;
         document.getElementById("totalExpiredItems").innerHTML = expiredItems.length < 10 ? ("00" + expiredItems.length).slice(-2) : expiredItems.length;
