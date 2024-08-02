@@ -56,7 +56,7 @@ generatePDF = ()=>{
             orientationLandscape: false,
             compress: true,
             logo: {
-                src: "/img/logo_2.png",
+                src: "/We_Burgers-POS_System/img/logo_2.png",
                 type: 'PNG', //optional, when src= data:uri (nodejs case)
                 width: 22, //aspect ratio = width/height
                 height: 27.13,
@@ -107,13 +107,13 @@ generatePDF = ()=>{
                 { 
                     title: "Item Code",
                     style: {
-                    width: 40
+                    width: 25
                     } 
                 }, 
                 { 
                     title: "Item Name",
                     style: {
-                    width: 40
+                    width: 55
                     } 
                 }, 
                 { title: "Price"},
@@ -175,7 +175,7 @@ generatePDF = ()=>{
                 document.getElementById("invoice").appendChild(canvas);
             })
         })
-    }, 10);
+    }, 20);
 }
 
 document.getElementById("btnDownload").addEventListener("click", function(){

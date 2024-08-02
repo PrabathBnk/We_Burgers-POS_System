@@ -598,7 +598,13 @@ updateCustomer = ()=>{
 let customerList;
 viewAllCustomers = ()=>{
     getOrders();
-    objectStore = openRequest.result.transaction("customer_os", "readonly").objectStore("customer_os");
+    try {
+        objectStore = openRequest.result.transaction("customer_os", "readonly").objectStore("customer_os");    
+    } catch (error) {
+        setTimeout(() => {
+            viewAllCustomers();
+        }, 10);
+    }
 
     let getAllRequest = objectStore.getAll();
     let tblBody = ``;
@@ -775,7 +781,13 @@ updateOrder = ()=>{
 
 //-----------------------------View Order-----------------------
 viewAllOrders = ()=>{
-    objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
+    try {
+        objectStore = openRequest.result.transaction("order_os", "readonly").objectStore("order_os");
+    } catch (error) {
+        setTimeout(() => {
+            viewAllOrders();
+        }, 10);
+    }
 
     let getAllRequest = objectStore.getAll();
     let tblBody = ``;
@@ -911,4 +923,35 @@ setCustomersData = ()=>{
     }, 10);
 }
 
+displayAllMonths = ()=>{
+    for (let i = 1; i <= 12; i++) {
+        document.getElementById("months").innerHTML += `<td onclick="goToReportPage(${i})">${getMonthName(i)}</td>`;
+    }
+}
+
+goToReportPage = (month)=>{
+    localStorage.setItem("month", month);
+
+    setTimeout(() => {
+        location.href="report/index.html";
+    }, 10);
+}
+
+getMonthName = (monthNumber) =>{
+    switch(monthNumber){
+        case 1: return "January"; 
+        case 2: return  "February"; 
+        case 3: return  "March"; 
+        case 4: return  "April"; 
+        case 5: return  "May"; 
+        case 6: return  "June"; 
+        case 7: return  "July"; 
+        case 8: return  "August"; 
+        case 9: return  "September";
+        case 10: return  "October"; 
+        case 11: return  "November"; 
+        case 12: return  "December"; 
+        default: return NaN;
+    }
+}
 

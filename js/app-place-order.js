@@ -115,9 +115,14 @@ document.getElementById("btnContinue").addEventListener("click", function(){
         }
 
         let addRequest = objectStore.add(order);
-
+        
         addRequest.onsuccess = ()=>{
-            location.href = "/We_Burgers-POS_System/receipt/index.html";
+            let getRequest = objectStore.getAll();
+
+            getRequest.onsuccess = ()=>{
+                localStorage.setItem("orders", JSON.stringify(getRequest.result));
+                location.href = "receipt/index.html";
+            }
         }
 
     }else{

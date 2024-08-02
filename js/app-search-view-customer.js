@@ -87,7 +87,7 @@ toOrders = (event)=>{
     if(parseFloat(event.target.innerHTML) > 0){
         let customerID = event.target.parentElement.parentElement.children[1].innerHTML;
         localStorage.setItem("customerID", customerID);
-        location.href = "/We_Burgers-POS_System/cutomers/view_customer/order_details/index.html";
+        location.href = "/We_Burgers-POS_System/customers/view_customer/order_details/index.html";
     }
 }
 
